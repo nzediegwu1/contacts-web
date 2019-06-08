@@ -1,0 +1,81 @@
+.add-icon {
+  color: white;
+}
+.add-profile {
+  margin-left: 1em;
+  background-color: #343a40;
+  color: #17a2b8;
+  border-color: #17a2b8;
+}
+@media screen and (max-width: 575px) {
+  .search-form {
+    width: 100%;
+  }
+}
+.modal-body {
+  width: 90%;
+  margin: auto;
+}
+.profile-icon {
+  width: 100px;
+  max-height: 100px;
+}
+.delete-person {
+  color: red;
+}
+.edit-person {
+  color: #007bff;
+  border-bottom: inherit;
+}
+.app-body {
+  margin-top: 4em;
+}
+.logo {
+  border-color: #17a2b8;
+  color: white;
+}
+
+.profile-header {
+  height: 10em;
+  background-color: #343a40;
+  margin-bottom: 4em;
+}
+.profile-img {
+  height: 9em;
+  margin: 3em 0em 0em 1em;
+}
+.people-table {
+  border-style: solid;
+  border-width: thin;
+  margin-top: 2em;
+}
+.contacts-table-head {
+  background-color: #343a40;
+  color: #84e4f3;
+}
+.btn-secondary {
+  background-color: #54595d;
+}
+.social-icons {
+  position: absolute;
+  right: 0;
+  margin: 2em 5%;
+  color: white;
+  font-size: x-large;
+}
+
+.social-icons i {
+  margin-right: 0.6em;
+}
+.profile-form {
+  width: 80%;
+  margin: auto;
+}
+.empty-contacts {
+  text-align: center;
+  margin-top: 8em;
+  color: rebeccapurple;
+}
+.fa-folder-open-o {
+  font-size: 4em;
+}
