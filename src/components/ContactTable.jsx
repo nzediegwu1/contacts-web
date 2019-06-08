@@ -1,27 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import axios from "axios";
 import { Table, DropdownButton, Dropdown, Container } from "react-bootstrap";
 import { anaezeImg } from "../images";
 
 axios.defaults.baseURL = "http://localhost:8000";
 
+const initialState = {
+  people: []
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "people":
+      return { ...state, people: action.payload };
+    default:
+      return state;
+  }
+};
 function ContactTable(props) {
   const gotoProfile = personId => () =>
     props.history.push(`/people/${personId}`);
 
-  const [userList, setUserList] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const fetchUsers = async setUserList => {
+  const fetchUsers = async dispatch => {
     const { data } = await axios.get("/people");
-    setUserList(data.data);
+    dispatch({ type: "people", payload: data.data });
   };
 
   useEffect(() => {
-    fetchUsers(setUserList);
+    fetchUsers(dispatch);
   }, []);
   return (
     <Container>
-      {!userList.length ? (
+      {!state.people.length ? (
         <div className="empty-contacts">
           <i className="fa fa-folder-open-o" />
           <h1>Your contact list is empty </h1>
@@ -40,7 +51,7 @@ function ContactTable(props) {
             </tr>
           </thead>
           <tbody>
-            {userList.map(person => (
+            {state.people.map(person => (
               <tr key={person._id}>
                 <td onClick={gotoProfile(person._id)}>
                   <a href="#profile">
