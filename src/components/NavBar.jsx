@@ -1,9 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
+import { useState } from "reinspect";
+
 import { Form, FormControl, Navbar, Button } from "react-bootstrap";
 import { ContactModal } from ".";
 
 function NavigationBar(props) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false, 'nav-bar');
   const handleShow = condition => () => {
     setShow(condition);
   };

@@ -1,35 +1,22 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import { Table, DropdownButton, Dropdown, Container } from "react-bootstrap";
+import { ContactContext } from "../app";
 import { anaezeImg } from "../images";
 
 axios.defaults.baseURL = "http://localhost:8000";
-
-const initialState = {
-  people: []
+const fetchUsers = async dispatch => {
+  const { data } = await axios.get("/people");
+  return dispatch({ type: "people", payload: data.data });
 };
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "people":
-      return { ...state, people: action.payload };
-    default:
-      return state;
-  }
-};
-function ContactTable(props) {
-  const gotoProfile = personId => () =>
-    props.history.push(`/people/${personId}`);
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const fetchUsers = async dispatch => {
-    const { data } = await axios.get("/people");
-    dispatch({ type: "people", payload: data.data });
-  };
+function ContactTable({ history }) {
+  const [state, dispatch] = useContext(ContactContext);
+  const gotoProfile = personId => () => history.push(`/people/${personId}`);
 
   useEffect(() => {
     fetchUsers(dispatch);
-  }, []);
+  }, [dispatch]);
   return (
     <Container>
       {!state.people.length ? (
@@ -67,9 +54,7 @@ function ContactTable(props) {
                 <td>
                   <DropdownButton alignRight title="" drop="right">
                     <Dropdown.Item
-                      onClick={() =>
-                        props.history.push(`/people/${person._id}`)
-                      }
+                      onClick={() => history.push(`/people/${person._id}`)}
                       className="edit-person"
                       eventKey="2"
                     >

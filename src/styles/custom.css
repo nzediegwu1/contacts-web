@@ -67,10 +67,6 @@
 .social-icons i {
   margin-right: 0.6em;
 }
-.profile-form {
-  width: 80%;
-  margin: auto;
-}
 .empty-contacts {
   text-align: center;
   margin-top: 8em;
@@ -78,4 +74,27 @@
 }
 .fa-folder-open-o {
   font-size: 4em;
+}
+.btn-success {
+  float: right;
+}
+.container {
+  padding-bottom: 2em;
+  padding-top: 1em;
+}
+.modal-footer {
+  padding-right: 1em;
+}
+
+@media screen and (min-width: 575px) {
+  .edit-profile-form {
+    width: 60%;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 575px) {
+  .edit-profile-form {
+    width: 90%;
+    margin: auto;
+  }
 }
