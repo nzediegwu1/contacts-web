@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import { Card, Nav, Container, Row, Image, Table } from "react-bootstrap";
 import { anaezeImg } from "../images";
-import { ContactContext } from "../app";
+import { AppContext } from "../app";
 import { formControls, initialFormState } from "../constants";
 import PersonForm from "./PersonForm";
 
@@ -11,7 +11,7 @@ axios.defaults.baseURL = "http://localhost:8000";
 
 function ProfileTable({ data = {} }) {
   return (
-    <Table className="profile-content" striped responsive hover>
+    <Table className="profile-content" striped bordered hover responsive>
       <tbody>
         {Object.entries(data).reduce((accumulator, [title, value]) => {
           const ignoreList = ["_id", "createdAt", "updatedAt", "__v"];
@@ -46,7 +46,7 @@ function ProfileForm() {
         formControls={formControls}
         buttons={buttons}
         initialState={initialFormState}
-        tag="edit-profile-form"
+        tag="editProfileForm"
       />
     </div>
   );
@@ -57,7 +57,7 @@ const getProfile = async (dispatch, params) => {
 };
 
 export default function ProfilePage(props) {
-  const [state, dispatch] = useContext(ContactContext);
+  const [state, dispatch] = useContext(AppContext);
   useEffect(() => {
     getProfile(dispatch, props.match.params);
   }, []);
@@ -66,7 +66,7 @@ export default function ProfilePage(props) {
       <Card>
         <Card.Header>
           <Nav variant="pills" defaultActiveKey="#first">
-            <Nav.Item onClick={() => dispatch({ type: "profile-tab" })}>
+            <Nav.Item onClick={() => dispatch({ type: "profileTab" })}>
               <Nav.Link
                 active={state.profileTabs.profileActive}
                 href="#profile"
@@ -74,7 +74,7 @@ export default function ProfilePage(props) {
                 Profile
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item onClick={() => dispatch({ type: "edit-tab" })}>
+            <Nav.Item onClick={() => dispatch({ type: "editTab" })}>
               <Nav.Link active={state.profileTabs.editActive} href="#edit">
                 Edit
               </Nav.Link>

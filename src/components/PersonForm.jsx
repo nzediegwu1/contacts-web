@@ -5,12 +5,19 @@ import { Form, InputGroup, FormControl, Modal, Button } from "react-bootstrap";
 export default function PersonForm(props) {
   const { buttons, formControls, handleSubmit, initialState, tag } = props;
   const [state, setState] = useState(initialState, tag);
+
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-
+  let data = {};
+  for (const key in state) {
+    const value = state[key].trim();
+    if (value.length) {
+      data[key] = value;
+    }
+  }
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={e => handleSubmit(e, data)}>
       {formControls.map(control => (
         <Form.Group key={control.key} controlId={control.controlId}>
           <InputGroup className="mb-3">

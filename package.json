@@ -17,7 +17,8 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "react-transition-group": "^4.1.0",
-    "reinspect": "^1.0.1"
+    "reinspect": "^1.0.1",
+    "toastr": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -11,7 +11,7 @@ export const formControls = [
   {
     controlId: "formGroupEmail",
     icon: "fa fa-envelope",
-    type: "text",
+    type: "email",
     placeholder: "Email",
     name: "email",
     key: 3.7 / Math.random(),

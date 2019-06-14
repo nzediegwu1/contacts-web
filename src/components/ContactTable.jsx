@@ -1,7 +1,18 @@
 import React, { useEffect, useContext } from "react";
+import { useState } from "reinspect";
 import axios from "axios";
-import { Table, DropdownButton, Dropdown, Container } from "react-bootstrap";
-import { ContactContext } from "../app";
+import toastr from "toastr";
+import { handleErrors } from "../util";
+import {
+  Table,
+  DropdownButton,
+  Dropdown,
+  Container,
+  Modal,
+  Button,
+  ButtonToolbar
+} from "react-bootstrap";
+import { AppContext } from "../app";
 import { anaezeImg } from "../images";
 
 axios.defaults.baseURL = "http://localhost:8000";
@@ -10,13 +21,53 @@ const fetchUsers = async dispatch => {
   return dispatch({ type: "people", payload: data.data });
 };
 
+const ConfirmModal = ({ show, handleShow, contactId }) => {
+  const [state, dispatch] = useContext(AppContext);
+
+  const deleteContact = async () => {
+    try {
+      const { data } = await axios.delete(`/people/${contactId}`);
+      toastr.success(`${data.data.fullname} Successfully deleted`);
+      const newPeople = state.people.filter(person => person._id !== contactId);
+      dispatch({ type: "people", payload: newPeople });
+      handleShow(false);
+    } catch (error) {
+      handleErrors(error);
+    }
+  };
+  return (
+    <Modal show={show} onHide={() => handleShow(false)}>
+      <Modal.Body>
+        <h5>Are you sure you wish to delete this contact?</h5>
+        <ButtonToolbar>
+          <Button onClick={() => handleShow(false)} variant="primary">
+            Cancel
+          </Button>
+          &nbsp;
+          <Button onClick={deleteContact} variant="danger">
+            Yes
+          </Button>
+        </ButtonToolbar>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
 function ContactTable({ history }) {
-  const [state, dispatch] = useContext(ContactContext);
+  const [state, dispatch] = useContext(AppContext);
+  const [show, setShow] = useState(false, "showDeleteModal");
+  const [selectedContact, setSelectedContact] = useState("", "selectedContact");
+
   const gotoProfile = personId => () => history.push(`/people/${personId}`);
 
   useEffect(() => {
     fetchUsers(dispatch);
   }, [dispatch]);
+
+  const openDeleteModal = async contactId => {
+    setShow(true);
+    setSelectedContact(contactId);
+  };
   return (
     <Container>
       {!state.people.length ? (
@@ -26,7 +77,7 @@ function ContactTable({ history }) {
           <h4> Add some contacts now</h4>
         </div>
       ) : (
-        <Table className="people-table" striped responsive hover>
+        <Table className="people-table" striped hover responsive>
           <thead className="contacts-table-head">
             <tr>
               <th />
@@ -60,7 +111,11 @@ function ContactTable({ history }) {
                     >
                       <i className="fa fa-edit" /> Edit
                     </Dropdown.Item>
-                    <Dropdown.Item className="delete-person" eventKey="1">
+                    <Dropdown.Item
+                      onClick={() => openDeleteModal(person._id)}
+                      className="delete-person"
+                      eventKey="1"
+                    >
                       <i className="fa fa-trash-o" /> Delete
                     </Dropdown.Item>
                   </DropdownButton>
@@ -70,6 +125,11 @@ function ContactTable({ history }) {
           </tbody>
         </Table>
       )}
+      <ConfirmModal
+        show={show}
+        handleShow={setShow}
+        contactId={selectedContact}
+      />
     </Container>
   );
 }

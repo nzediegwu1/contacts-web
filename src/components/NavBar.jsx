@@ -5,7 +5,7 @@ import { Form, FormControl, Navbar, Button } from "react-bootstrap";
 import { ContactModal } from ".";
 
 function NavigationBar(props) {
-  const [show, setShow] = useState(false, 'nav-bar');
+  const [show, setShow] = useState(false, 'navBar');
   const handleShow = condition => () => {
     setShow(condition);
   };

@@ -91,10 +91,38 @@
     width: 60%;
     margin: auto;
   }
+  .profile-content {
+    width: 70%;
+    margin: auto;
+  }
+
 }
 @media screen and (max-width: 575px) {
   .edit-profile-form {
     width: 90%;
     margin: auto;
   }
+  .profile-content {
+    width: 100%;
+    margin: auto;
+  }
+}
+/* Toastr styles */
+.toast {
+  background-color: #030303;
+}
+.toast-info {
+  background-color: #3276b1;
+}
+.toast-error {
+  background-color: #bd362f;
+}
+.toast-success {
+  background-color: #51a351;
+}
+.toast-warning {
+  background-color: #f89406;
+}
+.btn-toolbar {
+  float: right;
 }
