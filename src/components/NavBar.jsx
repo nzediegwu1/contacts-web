@@ -25,7 +25,7 @@ function NavigationBar(props) {
             variant="outline-primary"
             className="logo"
           >
-            <b>PR</b>
+            <b>CT</b>
           </Button>
           &nbsp;
           <Button onClick={handleShow(true)} className="add-profile">
