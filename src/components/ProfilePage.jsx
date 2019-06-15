@@ -39,7 +39,7 @@ function ProfileForm({ person }) {
   const handleSubmit = async (event, formState) => {
     event.preventDefault();
     try {
-      const { data } = await axios.patch(`/people/${person._id}`, formState);
+      const { data } = await axios.patch(`/contacts/${person._id}`, formState);
       dispatch({ type: "person", payload: data.data });
       toastr.success("Suffessfully updated contact");
     } catch (error) {
@@ -59,7 +59,7 @@ function ProfileForm({ person }) {
   );
 }
 const getProfile = async (dispatch, params) => {
-  const { data } = await axios.get(`/people/${params.id}`);
+  const { data } = await axios.get(`/contacts/${params.id}`);
   return dispatch({ type: "person", payload: data.data });
 };
 const deriveUrl = (person, service) =>

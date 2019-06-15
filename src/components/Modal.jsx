@@ -15,7 +15,7 @@ function ContactModal({ show, handleShow }) {
   const saveContact = async (e, details) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/people", details);
+      const { data } = await axios.post("/contacts", details);
       state.people.unshift(data.data);
       dispatch({ type: "people", payload: state.people });
       handleShow(false)();

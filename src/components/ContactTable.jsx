@@ -17,7 +17,7 @@ import { user } from "../images";
 
 axios.defaults.baseURL = "http://localhost:8000";
 const fetchUsers = async dispatch => {
-  const { data } = await axios.get("/people");
+  const { data } = await axios.get("/contacts");
   return dispatch({ type: "people", payload: data.data });
 };
 
@@ -26,7 +26,7 @@ const ConfirmModal = ({ show, handleShow, contactId }) => {
 
   const deleteContact = async () => {
     try {
-      const { data } = await axios.delete(`/people/${contactId}`);
+      const { data } = await axios.delete(`/contacts/${contactId}`);
       toastr.success(`${data.data.fullname} Successfully deleted`);
       const newPeople = state.people.filter(person => person._id !== contactId);
       dispatch({ type: "people", payload: newPeople });
@@ -63,7 +63,7 @@ function ContactTable({ history }) {
       type: "profileTab",
       payload: { profileActive: true, editActive: false }
     });
-    history.push(`/people/${personId}`);
+    history.push(`/contacts/${personId}`);
   };
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function ContactTable({ history }) {
       payload: { profileActive: false, editActive: true }
     });
     dispatch({ type: "person", payload: person });
-    history.push(`/people/${person._id}`);
+    history.push(`/contacts/${person._id}`);
   };
   return (
     <Container>
@@ -92,7 +92,7 @@ function ContactTable({ history }) {
           <h4> Add some contacts now</h4>
         </div>
       ) : (
-        <Table className="people-table" striped hover responsive>
+        <Table className="contact-table" striped hover responsive>
           <thead className="contacts-table-head">
             <tr>
               <th />

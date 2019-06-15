@@ -8,7 +8,7 @@ import { ContactTable, NavBar, ProfilePage } from "./components";
 function Pages() {
   return (
     <Switch>
-      <Route path="/people/:id" component={ProfilePage} />
+      <Route path="/contacts/:id" component={ProfilePage} />
       <Route path="/" component={ContactTable} />
     </Switch>
   );
