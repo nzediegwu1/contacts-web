@@ -79,3 +79,55 @@ export const initialFormState = {
   linkedIn: "",
   occupation: ""
 };
+
+export const ignoreList = [
+  "_id",
+  "createdAt",
+  "updatedAt",
+  "__v",
+  "facebook",
+  "twitter",
+  "linkedIn"
+];
+
+export const addModalButtons = closeHandler => [
+  {
+    variant: "secondary",
+    key: "close-form",
+    text: "Close",
+    type: "button",
+    onClick: closeHandler
+  },
+  {
+    variant: "success",
+    key: "save-profile",
+    text: "Save",
+    type: "submit"
+  }
+];
+
+export const navProps = [
+  {
+    type: "profileTab",
+    payload: { profileActive: true, editActive: false },
+    hash: "#profile",
+    text: "Profile",
+    activeType: "profileActive",
+    key: "profileNav"
+  },
+  {
+    type: "editTab",
+    payload: { profileActive: false, editActive: true },
+    hash: "#edit",
+    text: "Edit",
+    activeType: "editActive",
+    key: "editNav"
+  }
+];
+
+
+export const socialIcons = [
+  { service: "facebook", icon: "fa-facebook-official", key: "fb" },
+  { service: "twitter", icon: "fa-twitter", key: "twit" },
+  { service: "linkedIn", icon: "fa-linkedin-square", key: "linkd" }
+];

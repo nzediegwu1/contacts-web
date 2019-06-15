@@ -9,15 +9,8 @@ export default function PersonForm(props) {
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-  let data = {};
-  for (const key in state) {
-    const value = state[key].trim();
-    if (value.length) {
-      data[key] = value;
-    }
-  }
   return (
-    <Form onSubmit={e => handleSubmit(e, data)}>
+    <Form onSubmit={e => handleSubmit(e, state)}>
       {formControls.map(control => (
         <Form.Group key={control.key} controlId={control.controlId}>
           <InputGroup className="mb-3">

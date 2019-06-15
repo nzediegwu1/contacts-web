@@ -1,28 +1,19 @@
-const initialTabState = { profileActive: true, editActive: false };
 export const initialState = {
   people: [],
-  profileTabs: initialTabState
+  profileActive: true,
+  editActive: false
 };
 export default (state, action) => {
+  const { payload } = action;
   switch (action.type) {
     case "people":
-      return { ...state, people: action.payload };
+      return { ...state, people: payload };
     case "profileTab":
-      return {
-        ...state,
-        profileTabs: !state.profileTabs.profileActive
-          ? initialTabState
-          : state.profileTabs
-      };
+      return { ...state, ...payload };
     case "editTab":
-      return {
-        ...state,
-        profileTabs: !state.profileTabs.editActive
-          ? { profileActive: false, editActive: true }
-          : state.profileTabs
-      };
+      return { ...state, ...payload };
     case "person":
-      return { ...state, person: action.payload };
+      return { ...state, person: payload };
     default:
       return state;
   }

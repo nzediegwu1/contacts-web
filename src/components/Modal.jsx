@@ -2,32 +2,16 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
 import toastr from "toastr";
-import { formControls, initialFormState } from "../constants";
+import { formControls, initialFormState, addModalButtons } from "../constants";
 import PersonForm from "./PersonForm";
 import { AppContext } from "../app";
 import { handleErrors } from "../util";
 
 axios.defaults.baseURL = "http://localhost:8000";
 
-const buttons = closeHandler => [
-  {
-    variant: "secondary",
-    key: "close-form",
-    text: "Close",
-    type: "button",
-    onClick: closeHandler
-  },
-  {
-    variant: "success",
-    key: "save-profile",
-    text: "Save",
-    type: "submit"
-  }
-];
-
 function ContactModal({ show, handleShow }) {
   const [state, dispatch] = useContext(AppContext);
-  
+
   const saveContact = async (e, details) => {
     e.preventDefault();
     try {
@@ -47,7 +31,7 @@ function ContactModal({ show, handleShow }) {
       </Modal.Header>
       <Modal.Body>
         <PersonForm
-          buttons={buttons(handleShow(false))}
+          buttons={addModalButtons(handleShow(false))}
           formControls={formControls}
           initialState={initialFormState}
           handleSubmit={saveContact}

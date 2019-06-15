@@ -13,7 +13,7 @@ import {
   ButtonToolbar
 } from "react-bootstrap";
 import { AppContext } from "../app";
-import { anaezeImg } from "../images";
+import { user } from "../images";
 
 axios.defaults.baseURL = "http://localhost:8000";
 const fetchUsers = async dispatch => {
@@ -58,7 +58,13 @@ function ContactTable({ history }) {
   const [show, setShow] = useState(false, "showDeleteModal");
   const [selectedContact, setSelectedContact] = useState("", "selectedContact");
 
-  const gotoProfile = personId => () => history.push(`/people/${personId}`);
+  const gotoProfile = personId => {
+    dispatch({
+      type: "profileTab",
+      payload: { profileActive: true, editActive: false }
+    });
+    history.push(`/people/${personId}`);
+  };
 
   useEffect(() => {
     fetchUsers(dispatch);
@@ -67,6 +73,15 @@ function ContactTable({ history }) {
   const openDeleteModal = async contactId => {
     setShow(true);
     setSelectedContact(contactId);
+  };
+
+  const triggerEdit = person => {
+    dispatch({
+      type: "editTab",
+      payload: { profileActive: false, editActive: true }
+    });
+    dispatch({ type: "person", payload: person });
+    history.push(`/people/${person._id}`);
   };
   return (
     <Container>
@@ -91,12 +106,12 @@ function ContactTable({ history }) {
           <tbody>
             {state.people.map(person => (
               <tr key={person._id}>
-                <td onClick={gotoProfile(person._id)}>
+                <td onClick={() => gotoProfile(person._id)}>
                   <a href="#profile">
-                    <img src={anaezeImg} alt="" className="profile-icon" />
+                    <img src={user} alt="" className="profile-icon" />
                   </a>
                 </td>
-                <td onClick={gotoProfile(person._id)}>
+                <td onClick={() => gotoProfile(person._id)}>
                   <a href="#profile">{person.fullname}</a>
                 </td>
                 <td>{person.email}</td>
@@ -105,7 +120,7 @@ function ContactTable({ history }) {
                 <td>
                   <DropdownButton alignRight title="" drop="right">
                     <Dropdown.Item
-                      onClick={() => history.push(`/people/${person._id}`)}
+                      onClick={() => triggerEdit(person)}
                       className="edit-person"
                       eventKey="2"
                     >

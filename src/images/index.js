@@ -1,5 +1,3 @@
-import slayer from "./slayer.png";
-import anaeze from "./anaeze.jpg";
+import userIcon from "./userIcon.jpeg";
 
-export const slayerImg = slayer;
-export const anaezeImg = anaeze;
+export const user = userIcon;
