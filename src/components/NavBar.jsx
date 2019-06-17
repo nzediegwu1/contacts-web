@@ -14,7 +14,8 @@ function NavigationBar(props) {
 
   const handleSearch = event => {
     props.history.push("/");
-    dispatch({ type: "searchKey", payload: event.target.value.toLowerCase() });
+    const { value } = event.target;
+    dispatch({ type: "searchKey", payload: value.trim().toLowerCase() });
   };
   return (
     <Fragment>
