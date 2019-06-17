@@ -13,6 +13,7 @@ function NavigationBar(props) {
   };
 
   const handleSearch = event => {
+    props.history.push("/");
     dispatch({ type: "searchKey", payload: event.target.value.toLowerCase() });
   };
   return (
@@ -41,7 +42,7 @@ function NavigationBar(props) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Form inline className="ml-auto">
+          <Form onSubmit={e => e.preventDefault()} inline className="ml-auto">
             <div className="input-group-append search-form">
               <FormControl
                 onChange={handleSearch}
