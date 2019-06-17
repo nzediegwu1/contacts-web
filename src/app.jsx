@@ -1,7 +1,6 @@
 import React, { createContext } from "react";
 import { useReducer, StateInspector } from "reinspect";
 import reducer, { initialState } from "./reducers/rootReducer";
-
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import { ContactTable, NavBar, ProfilePage } from "./components";
 

@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
-import axios from "axios";
 import { Modal } from "react-bootstrap";
 import toastr from "toastr";
 import { formControls, initialFormState, addModalButtons } from "../constants";
 import PersonForm from "./PersonForm";
 import { AppContext } from "../app";
 import { handleErrors } from "../util";
+import {client} from '../constants'
 
-axios.defaults.baseURL = "http://localhost:8000";
 
 function ContactModal({ show, handleShow }) {
   const [state, dispatch] = useContext(AppContext);
@@ -15,7 +14,7 @@ function ContactModal({ show, handleShow }) {
   const saveContact = async (e, details) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/contacts", details);
+      const { data } = await client.post("/contacts", details);
       state.people.unshift(data.data);
       dispatch({ type: "people", payload: state.people });
       handleShow(false)();

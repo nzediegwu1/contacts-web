@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import { useState } from "reinspect";
-import axios from "axios";
 import toastr from "toastr";
 import { handleErrors } from "../util";
 import {
@@ -14,10 +13,10 @@ import {
 } from "react-bootstrap";
 import { AppContext } from "../app";
 import { user } from "../images";
+import { client } from "../constants";
 
-axios.defaults.baseURL = "http://localhost:8000";
 const fetchUsers = async dispatch => {
-  const { data } = await axios.get("/contacts");
+  const { data } = await client.get("/contacts");
   return dispatch({ type: "people", payload: data.data });
 };
 
@@ -26,7 +25,7 @@ const ConfirmModal = ({ show, handleShow, contactId }) => {
 
   const deleteContact = async () => {
     try {
-      const { data } = await axios.delete(`/contacts/${contactId}`);
+      const { data } = await client.delete(`/contacts/${contactId}`);
       toastr.success(`${data.data.fullname} Successfully deleted`);
       const newPeople = state.people.filter(person => person._id !== contactId);
       dispatch({ type: "people", payload: newPeople });
@@ -83,6 +82,16 @@ function ContactTable({ history }) {
     dispatch({ type: "person", payload: person });
     history.push(`/contacts/${person._id}`);
   };
+
+  const contactsToRender = people =>
+    people.filter(
+      ({ fullname, email, phone, address }) =>
+        fullname.toLowerCase().includes(state.searchKey) ||
+        email.toLowerCase().includes(state.searchKey) ||
+        phone.toLowerCase().includes(state.searchKey) ||
+        address.toLowerCase().includes(state.searchKey)
+    );
+
   return (
     <Container>
       {!state.people.length ? (
@@ -104,7 +113,7 @@ function ContactTable({ history }) {
             </tr>
           </thead>
           <tbody>
-            {state.people.map(person => (
+            {contactsToRender(state.people).map(person => (
               <tr key={person._id}>
                 <td onClick={() => gotoProfile(person._id)}>
                   <a href="#profile">

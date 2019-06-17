@@ -1,3 +1,8 @@
+import axios from "axios";
+
+export const client = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL
+});
 export const formControls = [
   {
     controlId: "formGroupName",
@@ -124,7 +129,6 @@ export const navProps = [
     key: "editNav"
   }
 ];
-
 
 export const socialIcons = [
   { service: "facebook", icon: "fa-facebook-official", key: "fb" },

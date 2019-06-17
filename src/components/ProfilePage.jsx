@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from "react";
-import axios from "axios";
 import toastr from "toastr";
 import { Card, Nav, Container, Row, Image, Table } from "react-bootstrap";
 import { user } from "../images";
@@ -8,8 +7,9 @@ import { AppContext } from "../app";
 import { formControls, ignoreList, navProps, socialIcons } from "../constants";
 import PersonForm from "./PersonForm";
 import { handleErrors } from "../util";
+import {client} from '../constants'
 
-axios.defaults.baseURL = "http://localhost:8000";
+
 
 function ProfileTable({ data = {} }) {
   return (
@@ -39,7 +39,7 @@ function ProfileForm({ person }) {
   const handleSubmit = async (event, formState) => {
     event.preventDefault();
     try {
-      const { data } = await axios.patch(`/contacts/${person._id}`, formState);
+      const { data } = await client.patch(`/contacts/${person._id}`, formState);
       dispatch({ type: "person", payload: data.data });
       toastr.success("Suffessfully updated contact");
     } catch (error) {
@@ -59,7 +59,7 @@ function ProfileForm({ person }) {
   );
 }
 const getProfile = async (dispatch, params) => {
-  const { data } = await axios.get(`/contacts/${params.id}`);
+  const { data } = await client.get(`/contacts/${params.id}`);
   return dispatch({ type: "person", payload: data.data });
 };
 const deriveUrl = (person, service) =>

@@ -1,13 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { useState } from "reinspect";
-
 import { Form, FormControl, Navbar, Button } from "react-bootstrap";
 import { ContactModal } from ".";
+import { AppContext } from "../app";
 
 function NavigationBar(props) {
-  const [show, setShow] = useState(false, 'navBar');
+  const [show, setShow] = useState(false, "navBar");
+  const [, dispatch] = useContext(AppContext);
+
   const handleShow = condition => () => {
     setShow(condition);
+  };
+
+  const handleSearch = event => {
+    dispatch({ type: "searchKey", payload: event.target.value.toLowerCase() });
   };
   return (
     <Fragment>
@@ -37,7 +43,11 @@ function NavigationBar(props) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Form inline className="ml-auto">
             <div className="input-group-append search-form">
-              <FormControl type="text" placeholder="Search" />
+              <FormControl
+                onChange={handleSearch}
+                type="text"
+                placeholder="Search"
+              />
               <Button variant="outline-info">
                 <i className="fa fa-search" />
               </Button>

@@ -18,11 +18,13 @@
     "react-scripts": "3.0.1",
     "react-transition-group": "^4.1.0",
     "reinspect": "^1.0.1",
+    "serve": "^11.0.1",
     "toastr": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
+    "start": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,7 +1,8 @@
 export const initialState = {
   people: [],
   profileActive: true,
-  editActive: false
+  editActive: false,
+  searchKey: ""
 };
 export default (state, action) => {
   const { payload } = action;
@@ -14,6 +15,8 @@ export default (state, action) => {
       return { ...state, ...payload };
     case "person":
       return { ...state, person: payload };
+    case "searchKey":
+      return { ...state, searchKey: payload };
     default:
       return state;
   }
