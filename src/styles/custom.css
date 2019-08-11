@@ -34,7 +34,7 @@
 .profile-header {
   height: 10em;
   background-color: #343a40;
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 }
 .profile-img {
   height: 9em;
@@ -84,14 +84,13 @@
 
 @media screen and (min-width: 575px) {
   .edit-profile-form {
-    width: 60%;
+    width: 80%;
     margin: auto;
   }
   .profile-content {
     width: 70%;
     margin: auto;
   }
-
 }
 @media screen and (max-width: 575px) {
   .edit-profile-form {
@@ -126,4 +125,16 @@
   width: 70px;
   max-height: 70px;
   border-radius: 50%;
+}
+.card-body {
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+.modal-footer {
+  padding-bottom: 0em;
+  width: -webkit-fill-available;
+  justify-content: center;
+}
+.submit-button {
+  width: 7em;
 }

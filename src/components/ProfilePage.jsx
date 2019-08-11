@@ -7,9 +7,7 @@ import { AppContext } from "../app";
 import { formControls, ignoreList, navProps, socialIcons } from "../constants";
 import PersonForm from "./PersonForm";
 import { handleErrors } from "../util";
-import {client} from '../constants'
-
-
+import { client } from "../constants";
 
 function ProfileTable({ data = {} }) {
   return (
@@ -31,7 +29,13 @@ function ProfileTable({ data = {} }) {
   );
 }
 const buttons = [
-  { variant: "success", key: "save-profile", text: "Save", type: "submit" }
+  {
+    variant: "success",
+    key: "save-profile",
+    text: "Save",
+    type: "submit",
+    style: "submit-button"
+  }
 ];
 
 function ProfileForm({ person }) {

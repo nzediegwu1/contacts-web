@@ -100,6 +100,11 @@ function ContactTable({ history }) {
           <h1>Your contact list is empty </h1>
           <h4> Add some contacts now</h4>
         </div>
+      ) : !contactsToRender(state.people).length ? (
+        <div className="empty-contacts">
+          <i className="fa fa-folder-open-o" />
+          <h1>No matching contact found</h1>
+        </div>
       ) : (
         <Table className="contact-table" striped hover responsive>
           <thead className="contacts-table-head">
