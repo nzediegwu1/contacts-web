@@ -25,8 +25,8 @@ const ConfirmModal = ({ show, handleShow, contactId }) => {
 
   const deleteContact = async () => {
     try {
-      const { data } = await client.delete(`/contacts/${contactId}`);
-      toastr.success(`${data.data.fullname} Successfully deleted`);
+      await client.delete(`/contacts/${contactId}`);
+      toastr.success('Successfully deleted');
       const newPeople = state.people.filter(person => person._id !== contactId);
       dispatch({ type: "people", payload: newPeople });
       handleShow(false);
